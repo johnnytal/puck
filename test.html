@@ -6,10 +6,10 @@
   <script src = "timbre.js"></script>
   <button onclick="Puck.write('LED1.set();\n');">LED On!</button>
   <button onclick="Puck.write('LED1.reset();\n');">LED Off!</button>
-  <script>
 
-   
-   
+ </body>
+ 
+   <script>
    setTimeout(function(){
       mySynth = T("sin", {freq:880, mul:0.5}).play();
 
@@ -20,7 +20,5 @@
 
       }, 20)
    },2000)
-   
   </script>
- </body>
 </html>
