@@ -14,9 +14,9 @@
       mySynth = T("sin", {freq:880, mul:0.5}).play();
 
       setInterval(function(){
-         capRead = Puck.capSense();
+         capRead = Math.round(Puck.capSense() / 6);
          console.log(capRead);
-         mySynth.set({freq: Math.round(capRead / 6)});
+         mySynth.set({freq: capRead});
 
       }, 20)
    },2000)
