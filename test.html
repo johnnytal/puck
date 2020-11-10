@@ -7,8 +7,18 @@
   <button onclick="Puck.write('LED1.set();\n');">LED On!</button>
   <button onclick="Puck.write('LED1.reset();\n');">LED Off!</button>
   <script>
+
+   
+   
    setTimeout(function(){
-      T("sin", {freq:880, mul:0.5}).play();
+      mySynth = T("sin", {freq:880, mul:0.5}).play();
+
+      setInterval(function(){
+         capRead = Puck.capSense();
+         console.log(capRead);
+         mySynth.set({freq: Math.round(capRead / 6))};
+
+      }, 20)
    },2000)
    
   </script>
