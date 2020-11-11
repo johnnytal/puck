@@ -7,7 +7,7 @@
   <link href="https://espruino.github.io/TinyDash/tinydash.css" rel="stylesheet">
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
-  <script src="timbre.js?version=1"></script>
+
   <script>
   // Called when we get a line of data - updates the light color
    var j = 0;
@@ -51,11 +51,16 @@
           // resets so the setInterval doesn't keep draining battery.
           connection.write("setInterval(function(){Bluetooth.println(JSON.stringify({light:Puck.capSense()}));},50);NRF.on('disconnect', function() {reset()});\n",
             function() { console.log("Ready..."); });
-               osc = T("sin", {freq:440, mul:0.2}).play();
+// create web audio api context
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-              setInterval(function(){
-                 osc.set({freq: Math.round(j.light / 30)})
-              }, 50)
+// create Oscillator node
+var oscillator = audioCtx.createOscillator();
+
+oscillator.type = 'square';
+oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // value in hertz
+oscillator.connect(audioCtx.destination);
+oscillator.start();
           }, 1500);
         });
       });
