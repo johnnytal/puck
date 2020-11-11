@@ -10,9 +10,10 @@
   <script src="timbre.js"></script>
   <script>
   // Called when we get a line of data - updates the light color
+   var j = 0;
   function onLine(line) {
     try {
-      var j = JSON.parse(line);
+      j = JSON.parse(line);
       console.log("Received JSON: ",j + "!");
       elements.light.setValue(j.light / 50);
     } catch(e) {
@@ -57,7 +58,7 @@
   }
    
    osc = T("sin", {freq:440, mul:0.2}).play();
-   osc.set({freq: Math.round(Puck.capSense() / 30)})
+   osc.set({freq: Math.round(j.light / 30)})
    
   // Set up the controls we see on the screen    
   var elements = {
