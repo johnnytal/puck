@@ -7,13 +7,14 @@
   <link href="https://espruino.github.io/TinyDash/tinydash.css" rel="stylesheet">
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
+  <script src="timbre.js"></script>
   <script>
   // Called when we get a line of data - updates the light color
   function onLine(line) {
     try {
       var j = JSON.parse(line);
       console.log("Received JSON: ",j);
-      elements.light.setValue(j.light*100);
+      elements.light.setValue(j.light / 50);
     } catch(e) {
       console.log("Received: ",line);
     }
@@ -47,17 +48,21 @@
           // Now tell it to write data on the current light level to Bluetooth
           // 10 times a second. Also ensure that when disconnected, Puck.js
           // resets so the setInterval doesn't keep draining battery.
-          connection.write("setInterval(function(){Bluetooth.println(JSON.stringify({light:Puck.capSense()}));},100);NRF.on('disconnect', function() {reset()});\n",
+          connection.write("setInterval(function(){Bluetooth.println(JSON.stringify({light:Puck.capSense()}));},50);NRF.on('disconnect', function() {reset()});\n",
             function() { console.log("Ready..."); });
           }, 1500);
         });
       });
 
   }
+   
+   osc = T("sin", {freq:440, mul:0.2}).play();
+   osc.set({freq: Math.round(Puck.capSense() / 30)})
+   
   // Set up the controls we see on the screen    
   var elements = {
     heading : TD.label({x:10,y:10,width:190,height:50,label:"My Dashboard"}),
-    light : TD.gauge({x:10,y:70,width:190,height:220,label:"Light",value:0,min:0,max:100}),
+    light : TD.gauge({x:10,y:70,width:190,height:220,label:"Light",value:0,min:0,max:400}),
     modal: TD.modal({x:10,y:10,width:190,height:430,label:"Click to connect",onchange:connectDevice})
   }
   for (var i in elements)
