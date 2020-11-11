@@ -14,7 +14,7 @@
   function onLine(line) {
     try {
       j = JSON.parse(line);
-      console.log("Received JSON: ",j + "!");
+      console.log("Received JSON: ",j + "!1");
       elements.light.setValue(j.light / 50);
     } catch(e) {
       console.log("Received: ",line);
@@ -63,7 +63,7 @@
       setInterval(function(){
          osc.set({freq: Math.round(j.light / 30)})
       }, 50)
-   }, 2500)
+   }, 10000)
 
    
   // Set up the controls we see on the screen    
