@@ -51,16 +51,20 @@
           // resets so the setInterval doesn't keep draining battery.
           connection.write("setInterval(function(){Bluetooth.println(JSON.stringify({light:Puck.capSense()}));},50);NRF.on('disconnect', function() {reset()});\n",
             function() { console.log("Ready..."); });
-// create web audio api context
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            // create web audio api context
+            var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-// create Oscillator node
-var oscillator = audioCtx.createOscillator();
+            // create Oscillator node
+            var oscillator = audioCtx.createOscillator();
 
-oscillator.type = 'square';
-oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // value in hertz
-oscillator.connect(audioCtx.destination);
-oscillator.start();
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // value in hertz
+            oscillator.connect(audioCtx.destination);
+            oscillator.start();
+         
+             setInterval(function(){
+                 oscillator.frequency.setValueAtTime(j.light, audioCtx.currentTime);
+             }, 50)
           }, 1500);
         });
       });
