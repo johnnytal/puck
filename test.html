@@ -57,8 +57,14 @@
 
   }
    
-   osc = T("sin", {freq:440, mul:0.2}).play();
-   osc.set({freq: Math.round(j.light / 30)})
+   setTimeout(function(){
+      osc = T("sin", {freq:440, mul:0.2}).play();
+   
+      setInterval(function(){
+         osc.set({freq: Math.round(j.light / 30)})
+      }, 50)
+   }, 2500)
+
    
   // Set up the controls we see on the screen    
   var elements = {
