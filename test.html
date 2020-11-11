@@ -63,7 +63,7 @@
             oscillator.start();
          
              setInterval(function(){
-                 oscillator.frequency.setValueAtTime(j.light / 40, audioCtx.currentTime);
+                 oscillator.frequency.setValueAtTime(j.light - 4000, audioCtx.currentTime);
              }, 50)
           }, 1500);
         });
