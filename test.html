@@ -51,6 +51,11 @@
           // resets so the setInterval doesn't keep draining battery.
           connection.write("setInterval(function(){Bluetooth.println(JSON.stringify({light:Puck.capSense()}));},50);NRF.on('disconnect', function() {reset()});\n",
             function() { console.log("Ready..."); });
+               osc = T("sin", {freq:440, mul:0.2}).play();
+
+              setInterval(function(){
+                 osc.set({freq: Math.round(j.light / 30)})
+              }, 50)
           }, 1500);
         });
       });
@@ -58,11 +63,7 @@
   }
    
    setTimeout(function(){
-      osc = T("sin", {freq:440, mul:0.2}).play();
-   
-      setInterval(function(){
-         osc.set({freq: Math.round(j.light / 30)})
-      }, 50)
+
    }, 10000)
 
    
