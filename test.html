@@ -13,7 +13,7 @@
   function onLine(line) {
     try {
       var j = JSON.parse(line);
-      console.log("Received JSON: ",j);
+      console.log("Received JSON: ",j + "!");
       elements.light.setValue(j.light / 50);
     } catch(e) {
       console.log("Received: ",line);
